@@ -21,11 +21,13 @@ class ViewController: UIViewController {
     @IBOutlet weak var playAgainButton: UIButton!
     
     @IBOutlet weak var flowerImageView: UIImageView!
-    var wordToGuess = "SWIFT"
+    var wordToGuess = ["GASSON","DEVLIN","CAMPION","LYONS","STOKES"]
     var lettersGuessed = ""
     let maxNumberofWrongGuesses = 8
     var wrongGuessesRemaining = 8
     var guessCount = 0
+    var currentWordToGuess = ""
+    var n = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,6 +35,15 @@ class ViewController: UIViewController {
         guessedLetterButton.isEnabled = false
         playAgainButton.isHidden = true
     }
+    
+//    func word() {
+//        let listOfWords = ["GASSON","DEVLIN","CAMPION","LYONS","STOKES"]
+//        let number = Int.random(in: 0 ..< listOfWords.count)
+//        var finalWord = listOfWords[number]
+//        return finalWord
+//
+//    }
+    
     func updateUIAfterGuess() {
         guessedLetterField.resignFirstResponder()
         guessedLetterField.text = ""
@@ -40,8 +51,8 @@ class ViewController: UIViewController {
     func formatUserGuessLabel() {
         var revealedWord = ""
         lettersGuessed += guessedLetterField.text!
-        
-        for letter in wordToGuess {
+        let currentWordToGuess = wordToGuess[n]
+        for letter in currentWordToGuess {
             if lettersGuessed.contains(letter){
                 revealedWord = revealedWord + " \(letter)"
             } else{
@@ -55,9 +66,9 @@ class ViewController: UIViewController {
     func guessALetter() {
         formatUserGuessLabel()
         guessCount += 1
-        
+        let currentWordToGuess = wordToGuess[n]
         let currentLetterGuessed = guessedLetterField.text!
-        if !wordToGuess.contains(currentLetterGuessed) {
+        if !currentWordToGuess.contains(currentLetterGuessed) {
             wrongGuessesRemaining = wrongGuessesRemaining - 1
             flowerImageView.image = UIImage(named: "flower\(wrongGuessesRemaining)")
         }
@@ -107,9 +118,13 @@ class ViewController: UIViewController {
         flowerImageView.image = UIImage(named: "flower8")
         wrongGuessesRemaining = maxNumberofWrongGuesses
         lettersGuessed = ""
-        formatUserGuessLabel()
         guessCountLabel.text = "You've made 0 guesses "
         guessCount = 0
+        n += 1
+        if n > 4 {
+            n = 0
+        }
+        formatUserGuessLabel()
     }
     
 }
