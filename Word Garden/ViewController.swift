@@ -36,13 +36,6 @@ class ViewController: UIViewController {
         playAgainButton.isHidden = true
     }
     
-//    func word() {
-//        let listOfWords = ["GASSON","DEVLIN","CAMPION","LYONS","STOKES"]
-//        let number = Int.random(in: 0 ..< listOfWords.count)
-//        var finalWord = listOfWords[number]
-//        return finalWord
-//
-//    }
     
     func updateUIAfterGuess() {
         guessedLetterField.resignFirstResponder()
